@@ -14,13 +14,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'npx cypress run'
+                bat 'npx cypress run'
             }
         }
 
@@ -34,8 +34,8 @@ pipeline {
     post {
         always {
             emailext (
-                subject: "Build - ${BUILD_STATUS}",
-                body: """<p>Build result: ${BUILD_STATUS}</p>
+                subject: "Build - ${currentBuild.currentResult}",
+                body: """<p>Build result: ${currentBuild.currentResult}</p>
                          <p><a href="${BUILD_URL}allure">View Allure Report</a></p>""",
                 to: "kareem.m.ebrahim@outlook.com",
                 mimeType: 'text/html'
