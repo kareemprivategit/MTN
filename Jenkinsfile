@@ -27,7 +27,9 @@ pipeline {
 
         stage('Allure Report') {
             steps {
-                allure includeProperties: false, results: [[path: 'allure-results']]
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    allure includeProperties: false, results: [[path: 'allure-results']]
+                }
             }
         }
     }
@@ -37,6 +39,15 @@ pipeline {
             emailext (
                 subject: "Build - ${currentBuild.currentResult}",
                 body: """<p>Build result: ${currentBuild.currentResult}</p>
+                         <p><a href="${BUILD_URL}allure">View Allure Report</a></p>""",
+                to: "kareem.m.ebrahim@outlook.com",
+                mimeType: 'text/html'
+            )
+        }
+        failure {
+            emailext (
+                subject: "Build Failed - ${currentBuild.currentResult}",
+                body: """<p>Unfortunately, the build failed.</p>
                          <p><a href="${BUILD_URL}allure">View Allure Report</a></p>""",
                 to: "kareem.m.ebrahim@outlook.com",
                 mimeType: 'text/html'
