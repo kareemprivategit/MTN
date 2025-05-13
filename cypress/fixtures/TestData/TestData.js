@@ -1,6 +1,6 @@
 const { faker } = require('@faker-js/faker');
 
-const productName = `${faker.random.alpha({ count: 4, casing: 'lower' })} ${faker.random.alpha({ count: 4, casing: 'lower' })}`;
+const productName = `${faker.string.alpha(4)} ${faker.string.alpha(4)}`;
 const productSKU = faker.string.uuid();
 const Quantity = '100';
 const Weight = '1.5';

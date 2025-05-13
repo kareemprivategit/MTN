@@ -3,12 +3,13 @@ import Environement from '../fixtures/Environements.js';
 export class Login {
   loginAsMerchant() {
     cy.visit(Environement.Uat_MerchantPortal);
-    cy.get(':nth-child(3) > .country-flag', { timeout: 30000 }).should('be.visible').click(); 
-    cy.get('.login-btn > .p-button-label', { timeout: 30000 }).should('be.visible').click();
-    cy.get('#phone', { timeout: 500000 }).should('be.visible').should('exist').type('780000011');
+    cy.get(':nth-child(3) > .country-flag').should('be.visible').click(); 
+    cy.get('.login-btn > .p-button-label').should('be.visible').click();
+    cy.get('#phone').should('be.visible').should('exist').type('780000011');
     cy.get('#Password-input').should('be.visible').type('P@ss0rd1234');
-    cy.get('#login-button', { timeout: 50000 }).should('be.visible').click();
-    cy.get('.header', { timeout: 30000 }).should('contain.text', 'Dashboard');
+    cy.get('#login-button' ).should('be.visible').click();
+    cy.wait(10000);
+    cy.get('.header').should('contain.text', 'Dashboard');
   }
 
   loginAsOperation() {

@@ -7,6 +7,7 @@ export class AddProduct {
     cy.wait(10000);
     cy.get(':nth-child(3) > li > .d-flex > .mat-icon', { timeout: 100000 }).should('be.visible').click({ force: true});
     //Click on Add product Button
+    cy.wait(5000);
     cy.get('.mobile-bottom__header-buttons > :nth-child(1) > .btn', {timeout: 50000}).should('be.visible').click();
     // click on category Dropdown list
     cy.get('.ng-input > input', { timeout: 20000 }).should('exist').should('be.visible').click();
